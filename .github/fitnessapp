@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0f0d">
+<title>NaijaFit — Eat well. Train strong.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+@property --p{syntax:'<number>';inherits:true;initial-value:0}
+:root{color-scheme:dark;--bg:#0b0f0d;--card:#131a16;--card2:#19221d;--line:#25302a;--txt:#eef3ec;--mut:#92a097;--lime:#c7ff59;--ease:cubic-bezier(.2,.75,.25,1);--head:'Sora','Inter',system-ui,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.55 'Inter',system-ui,-apple-system,sans-serif;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+body.lock{overflow:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 70% 50% at 50% -10%,#2a3d2d,transparent 70%),radial-gradient(ellipse 40% 30% at 100% 90%,#1b2a1f,transparent)}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+h1,h2,h3{font-family:var(--head);margin:0;letter-spacing:-.03em}
+.mut{color:var(--mut)}.eyebrow{color:var(--lime);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+/* intro */
+#intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center}
+.cur{position:absolute;left:0;right:0;height:50.5%;background:#080b09;transition:transform 1.1s cubic-bezier(.76,0,.24,1)}
+.cur.t{top:0}.cur.b{bottom:0}
+#intro.done .t{transform:translateY(-101%)}#intro.done .b{transform:translateY(101%)}
+.ic{position:relative;text-align:center;transition:opacity .45s,transform .6s var(--ease)}
+#intro.done .ic{opacity:0;transform:scale(1.08)}
+.glow{position:absolute;left:50%;top:40%;width:420px;height:420px;margin:-210px;background:radial-gradient(circle,#c7ff5922,transparent 65%);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.25);opacity:.6}}
+.ring-draw{width:96px;height:96px;display:block;margin:0 auto 22px;position:relative}
+.ring-draw circle{fill:none;stroke:var(--lime);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:289;stroke-dashoffset:289;transform-origin:center;transform:rotate(-90deg);animation:draw 1.6s .2s var(--ease) forwards}
+.ring-draw text{fill:var(--lime);font-size:30px;opacity:0;animation:fadeIn .6s 1s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}@keyframes fadeIn{to{opacity:1}}
+.word{font:800 clamp(34px,8vw,64px)/1 var(--head);letter-spacing:-.04em;display:flex;justify-content:center;overflow:hidden;padding-bottom:6px}
+.word span{display:inline-block;transform:translateY(110%);animation:rise .8s var(--ease) forwards}
+.word span.l{color:var(--lime)}
+@keyframes rise{to{transform:none}}
+.tag-i{margin-top:10px;color:var(--mut);font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:0;animation:fadeIn .8s 1.1s forwards}
+.load{width:200px;height:2px;background:#25302a;margin:30px auto 10px;border-radius:2px;overflow:hidden}.load i{display:block;height:100%;width:0;background:var(--lime);box-shadow:0 0 12px var(--lime)}
+.pct{font:600 11px var(--head);color:var(--mut);font-variant-numeric:tabular-nums}
+/* nav */
+.nav{position:sticky;top:0;z-index:50;height:68px;padding:0 max(24px,calc((100% - 1120px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px;background:#0b0f0dcc;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid #ffffff0d;transform:translateY(-100%)}
+body.go .nav{transform:none;transition:transform .9s .2s var(--ease)}
+.logo{font:800 20px var(--head);letter-spacing:-.04em;display:flex;align-items:center;gap:9px}.logo b{color:var(--lime)}
+.mark{width:30px;height:30px;border-radius:9px;background:var(--lime);color:#0b0f0d;display:grid;place-items:center;font-size:16px;transition:transform .5s var(--ease)}.logo:hover .mark{transform:rotate(90deg) scale(1.1)}
+.links{position:relative;display:flex;gap:2px;padding:4px;border-radius:12px;background:#ffffff08;border:1px solid #ffffff0d}
+.links button{position:relative;z-index:1;padding:8px 14px;border-radius:9px;font-size:13px;font-weight:600;color:var(--mut);transition:color .3s}
+.links button:hover,.links button.sel{color:var(--txt)}.links button.sel{color:#0b0f0d}
+.pill{position:absolute;top:4px;bottom:4px;left:0;border-radius:9px;background:var(--lime);transition:transform .5s var(--ease),width .5s var(--ease);box-shadow:0 4px 18px #c7ff5940}
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--card2);border:1px solid var(--line);color:var(--lime);font-weight:700;display:none;place-items:center}
+body[data-v]:not([data-v=home]) .avatar{display:grid}body[data-v]:not([data-v=home]) .nav .btn{display:none}
+/* buttons */
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:12px;font-weight:700;font-size:14px;transition:transform .35s var(--ease),box-shadow .35s,background .3s,border-color .3s;will-change:transform}
+.btn:active{transform:scale(.95)!important}
+.btn.p{background:var(--lime);color:#0b0f0d;box-shadow:0 8px 30px #c7ff5930}.btn.p:hover{box-shadow:0 12px 40px #c7ff5960}
+.btn.g{border:1px solid #ffffff22;background:#ffffff08}.btn.g:hover{background:#ffffff14;border-color:#ffffff40}
+.btn .ar{transition:transform .35s var(--ease)}.btn:hover .ar{transform:translateX(5px)}
+.rip{position:absolute;border-radius:50%;background:#ffffff55;transform:scale(0);animation:rip .7s ease-out forwards;pointer-events:none}.g .rip{background:#c7ff5933}
+@keyframes rip{to{transform:scale(1);opacity:0}}
+/* layout */
+.wrap{max-width:1120px;margin:auto;padding:0 22px}
+.view[hidden]{display:none}.view:not([hidden]){animation:vin .6s var(--ease) both}
+@keyframes vin{from{opacity:0;transform:translateY(16px)}}
+[data-r]{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0s)}[data-r].in{opacity:1;transform:none}
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;min-height:calc(100vh - 68px);padding:40px 0}
+.hero h1{font-size:clamp(42px,7vw,84px);line-height:.98;margin:16px 0 20px}
+.hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}.hero h1 .w i{display:inline-block;font-style:normal;transform:translateY(105%);transition:transform 1s var(--ease);transition-delay:calc(var(--i)*.09s + .5s)}
+body.go .hero h1 .w i{transform:none}.hero h1 em{font-style:normal;color:var(--lime)}
+.hero .fade{opacity:0;transform:translateY(20px);transition:all .9s var(--ease);transition-delay:calc(var(--i)*.12s + .9s)}body.go .hero .fade{opacity:1;transform:none}
+.hero p.lead{font-size:18px;color:var(--mut);max-width:480px;margin:0 0 28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.stats{display:flex;gap:34px;margin-top:44px}.stats b{display:block;font:700 28px var(--head);letter-spacing:-.03em}.stats span{font-size:12px;color:var(--mut)}
+.phone{position:relative;animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-14px)}}
+.phone .card{padding:26px;box-shadow:0 40px 80px #0008,0 0 0 1px #c7ff5914}
+.chip{position:absolute;padding:10px 14px;border-radius:14px;background:#19221dee;border:1px solid var(--line);font-size:12px;font-weight:600;backdrop-filter:blur(10px);box-shadow:0 14px 34px #0006;animation:float 5s ease-in-out infinite}
+.chip.a{top:-18px;right:-8px;animation-delay:-1s}.chip.b{bottom:30px;left:-26px;animation-delay:-3s}
+.marq{overflow:hidden;border-block:1px solid var(--line);padding:18px 0;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marq div{display:flex;gap:44px;width:max-content;animation:mq 34s linear infinite;font:700 20px var(--head);color:#ffffff55;white-space:nowrap}.marq:hover div{animation-play-state:paused}.marq span:hover{color:var(--lime)}
+@keyframes mq{to{transform:translateX(-50%)}}
+section.blk{padding:96px 0 0}.blk h2{font-size:clamp(30px,4.6vw,48px);margin:10px 0 14px;max-width:620px}.blk>.wrap>p{color:var(--mut);max-width:520px;margin:0 0 40px}
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;overflow:hidden;transition:transform .5s var(--ease),border-color .4s}
+.card.hv:hover{transform:translateY(-6px);border-color:#c7ff5944}
+.card.hv:before{content:"";position:absolute;inset:0;background:radial-gradient(260px circle at var(--mx,50%) var(--my,0),#c7ff5914,transparent 70%);opacity:0;transition:opacity .4s;pointer-events:none}.card.hv:hover:before{opacity:1}
+.feat .ico{width:46px;height:46px;border-radius:13px;background:#c7ff591a;display:grid;place-items:center;font-size:22px;margin-bottom:18px}
+.feat h3{font-size:18px;margin-bottom:8px}.feat p{margin:0;color:var(--mut);font-size:14px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:s}.steps .card:before{counter-increment:s;content:"0" counter(s);position:static;display:block;background:none;opacity:1;font:800 44px var(--head);color:#c7ff5933;margin-bottom:10px;inset:auto}
+.steps h3{font-size:17px;margin-bottom:6px}.steps p{margin:0;color:var(--mut);font-size:14px}
+.band{margin:96px 0 0;padding:64px 28px;border-radius:28px;text-align:center;background:linear-gradient(135deg,#25382a,#131a16);border:1px solid #c7ff5933}
+.band h2{font-size:clamp(28px,4.4vw,44px);margin:0 auto 14px;max-width:560px}.band p{color:var(--mut);margin:0 auto 26px;max-width:440px}
+footer{padding:50px 22px 40px;text-align:center;color:var(--mut);font-size:12px}
+/* app */
+.app{padding:34px 0 60px}
+.welcome{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:22px}.welcome h1{font-size:34px;margin:6px 0 4px}.welcome p{margin:0;color:var(--mut);font-size:14px}
+.date{padding:9px 14px;border:1px solid var(--line);border-radius:11px;background:var(--card);font-size:12px;font-weight:600}
+.layout{display:grid;grid-template-columns:1.5fr 1fr;gap:18px}.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.head h2{font-size:17px}.small{font-size:12px;color:var(--mut);margin-top:2px}
+.act{color:var(--lime);font-size:12px;font-weight:700;padding:7px 10px;border-radius:8px;transition:background .3s,transform .3s var(--ease)}.act:hover{background:#c7ff5914;transform:translateX(3px)}.act:active{transform:scale(.94)}
+.nut{display:flex;align-items:center;gap:22px}
+.ring{--p:0;width:122px;height:122px;flex:none;border-radius:50%;background:conic-gradient(var(--lime) calc(var(--p)*1%),#2a342f 0);display:grid;place-items:center;position:relative;transition:--p 1.4s var(--ease)}
+.ring:before{content:"";position:absolute;inset:13px;background:var(--card);border-radius:50%}.ring div{position:relative;text-align:center}.ring strong{display:block;font:700 23px var(--head);font-variant-numeric:tabular-nums}.ring small{font-size:10px;color:var(--mut)}
+.macros{flex:1}.macro{margin:10px 0}.ml{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}.ml span{color:var(--mut)}
+.track{height:6px;border-radius:9px;background:#2a342f;overflow:hidden}.track i{display:block;height:100%;width:0;border-radius:9px;background:var(--lime);transition:width 1.2s var(--ease)}
+.macro:nth-child(2) i{background:#ff9d51}.macro:nth-child(3) i{background:#a88aff}
+.meal{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line);animation:vin .5s var(--ease) both}.meal.out{animation:mout .35s forwards}@keyframes mout{to{opacity:0;transform:translateX(30px);height:0;padding:0}}
+.icon{width:40px;height:40px;display:grid;place-items:center;background:var(--card2);border-radius:12px;font-size:19px;flex:none}
+.mi{flex:1;min-width:0}.mi b{display:block;font-size:13px}.mi small{color:var(--mut);font-size:11px}.kc{font-size:12px;font-weight:700;white-space:nowrap;color:var(--lime)}
+.x{width:26px;height:26px;border-radius:8px;color:var(--mut);transition:all .3s}.x:hover{background:#ff5a5a22;color:#ff8080;transform:rotate(90deg)}
+.train{background:linear-gradient(145deg,#25362b,#131a16);border-color:#354639}
+.ex{display:flex;align-items:center;gap:12px;margin:12px 0;padding:10px;border-radius:12px;cursor:pointer;transition:background .3s,transform .3s var(--ease)}.ex:hover{background:#ffffff0a;transform:translateX(4px)}
+.num{width:30px;height:30px;background:#ffffff14;border-radius:9px;display:grid;place-items:center;color:var(--lime);font-size:12px;font-weight:700;transition:all .4s var(--ease)}
+.ex b{display:block;font-size:13px;transition:opacity .3s}.ex small{color:var(--mut);font-size:11px}
+.ex.ok .num{background:var(--lime);color:#0b0f0d;transform:rotate(360deg)}.ex.ok b{opacity:.5;text-decoration:line-through}
+.start{width:100%;margin-top:6px}.start.live{background:#ff6b5a;color:#fff;box-shadow:0 8px 30px #ff6b5a40}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.day{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:11px 4px;text-align:center;font-size:11px;font-weight:600;transition:all .4s var(--ease)}.day:hover{transform:translateY(-3px);border-color:#c7ff5955}.day small{display:block;color:var(--mut);font-size:9px;letter-spacing:.1em;margin-bottom:3px}
+.day.act2{background:#c7ff5918;border-color:#c7ff5966;color:var(--lime)}.days.edit .day span{outline:1px dashed #c7ff5988;padding:1px 3px;border-radius:4px}
+.water{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.glasses{display:flex;gap:5px}.glasses i{width:14px;height:24px;border-radius:3px 3px 6px 6px;border:1.5px solid #4a6357;transition:all .4s var(--ease);cursor:pointer}.glasses i.f{background:#5fd0e6;border-color:#5fd0e6;transform:translateY(-2px)}
+.ctl{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700}.ctl button{width:30px;height:30px;border-radius:9px;border:1px solid var(--line);background:var(--card2);color:var(--lime);transition:all .3s var(--ease)}.ctl button:hover{border-color:var(--lime);transform:scale(1.1)}.ctl button:active{transform:scale(.88)}
+.hero2{padding:30px;border-radius:20px;margin-bottom:18px;background:linear-gradient(115deg,#2a3d2e,#131a16);border:1px solid #3a4c3d}.hero2 h1{font-size:clamp(26px,4vw,36px);margin:6px 0}.hero2 p{margin:0;color:var(--mut)}
+.field{display:grid;gap:6px;font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
+select{min-width:190px;padding:11px 12px;background:#0e1411;color:var(--txt);border:1px solid #34413a;border-radius:11px;font:inherit;transition:border-color .3s,box-shadow .3s}select:focus{outline:0;border-color:var(--lime);box-shadow:0 0 0 3px #c7ff5926}
+.ctrls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.mo{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}.mo .opt{display:flex;gap:12px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--card2);animation:vin .5s var(--ease) both;animation-delay:calc(var(--i)*.06s);transition:transform .4s var(--ease),border-color .3s}.mo .opt:hover{transform:translateY(-3px);border-color:#c7ff5955}
+.add{border:1px solid #55703a;background:#263522;color:var(--lime);border-radius:9px;padding:7px 11px;font-size:11px;font-weight:700;transition:all .3s var(--ease)}.add:hover{background:var(--lime);color:#0b0f0d}.add:active{transform:scale(.9)}
+.gg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.gc h3{font-size:16px;margin:6px 0}.gc p{color:var(--mut);font-size:13px;margin:0 0 16px}.gc.on{border-color:var(--lime);box-shadow:0 0 0 1px var(--lime),0 16px 40px #c7ff5914}
+.timer{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px;border-radius:14px;background:var(--card2);border:1px solid var(--line);margin:14px 0}.tv{font:700 36px var(--head);font-variant-numeric:tabular-nums;color:var(--lime)}.tb{display:flex;gap:8px}.tb .btn{padding:9px 16px}
+#logList{list-style:none;margin:8px 0 14px;padding:0;font-size:13px}#logList li{padding:9px 0;border-top:1px solid var(--line);animation:vin .5s both;display:flex;justify-content:space-between;color:var(--mut)}
+.toast{position:fixed;bottom:calc(86px + env(safe-area-inset-bottom,0px));left:50%;transform:translate(-50%,20px) scale(.95);opacity:0;background:var(--lime);color:#0b0f0d;font-weight:700;border-radius:12px;padding:11px 18px;font-size:13px;transition:all .45s var(--ease);pointer-events:none;z-index:60;box-shadow:0 14px 40px #0008;max-width:90vw}.toast.show{opacity:1;transform:translate(-50%,0) scale(1)}
+@media(min-width:701px){.toast{bottom:28px}}
+@media(max-width:860px){.hero{grid-template-columns:1fr;min-height:0;padding-top:30px}.phone{max-width:420px;margin:20px auto 0}.feat,.steps,.gg{grid-template-columns:1fr}.layout{grid-template-columns:1fr}}
+@media(max-width:700px){.nav{padding:0 16px}.nav .btn{padding:9px 14px}
+.links{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:70;justify-content:space-between;background:#131a16ee;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-radius:16px;padding:5px;box-shadow:0 14px 40px #000a}.links button{flex:1;padding:10px 4px;font-size:12px}.pill{top:5px;bottom:5px}
+.wrap{padding:0 16px}body{padding-bottom:90px}.mo{grid-template-columns:1fr}.days{grid-template-columns:repeat(4,1fr)}.welcome h1{font-size:27px}.chip.b{left:-6px}.stats{gap:22px}.nut{flex-direction:column;align-items:flex-start}.macros{width:100%}.band{padding:48px 20px}}
+.modal{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:16px}.modal[hidden]{display:none}
+.mb{position:absolute;inset:0;background:#050806cc;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:fadeIn .4s both;opacity:0}
+.mc{position:relative;width:100%;max-width:420px;background:var(--card);border:1px solid #c7ff5933;border-radius:24px;padding:30px;box-shadow:0 40px 100px #000a;animation:pop .55s var(--ease) both}
+@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.96)}}
+.mc h2{font-size:26px;margin:8px 0 4px}.mx{position:absolute;top:16px;right:16px}
+.tabs{position:relative;display:grid;grid-template-columns:1fr 1fr;margin:18px 0;padding:4px;border-radius:12px;background:#ffffff08;border:1px solid #ffffff0d}.tabs button{position:relative;z-index:1;padding:9px;font-weight:700;font-size:13px;color:var(--mut);transition:color .3s}.tabs button.sel{color:#0b0f0d}.tabs i{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:9px;background:var(--lime);transition:transform .45s var(--ease)}.tabs.in i{transform:translateX(100%)}
+.fl{display:grid;gap:6px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}.fl[hidden]{display:none}.fl:not([hidden]){animation:vin .45s var(--ease) both}
+.fl input{padding:13px 14px;background:#0e1411;color:var(--txt);border:1px solid #34413a;border-radius:12px;font:inherit;font-size:15px;text-transform:none;letter-spacing:0;font-weight:400;transition:border-color .3s,box-shadow .3s}.fl input:focus{outline:0;border-color:var(--lime);box-shadow:0 0 0 3px #c7ff5926}
+.err{min-height:20px;color:#ff8f8f;font-size:12px;margin-bottom:8px}
+.um{position:fixed;top:76px;right:max(20px,calc((100% - 1120px)/2));z-index:80;min-width:220px;padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--line);box-shadow:0 20px 50px #000a;animation:pop .4s var(--ease) both}.um[hidden]{display:none}.um b{display:block;font:700 15px var(--head)}.um .small{margin:2px 0 12px;word-break:break-all}
+.avatar{cursor:pointer;transition:transform .3s var(--ease),border-color .3s}.avatar:hover{transform:scale(1.08);border-color:var(--lime)}
+body:not(.authed) .avatar{display:none!important}body.authed .avatar{display:grid!important}body.authed .nav .btn.si{display:none}.nav .btn.si{padding:10px 18px}
+@media(max-width:700px){.nav .btn.si{display:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01s!important;animation-delay:0s!important;transition-duration:.01s!important;transition-delay:0s!important}}
+</style>
+</head>
+<body class="lock" data-v="home">
+<div id="intro" aria-hidden="true"><div class="cur t"></div><div class="cur b"></div><div class="glow"></div>
+<div class="ic"><svg class="ring-draw" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46"/><text x="50" y="62" text-anchor="middle">✳</text></svg><div class="word" id="word"></div><div class="tag-i">Eat well · Train strong</div><div class="load"><i id="bar"></i></div><div class="pct" id="pct">0%</div></div></div>
+
+<header class="nav"><div class="logo" onclick="go('home')" style="cursor:pointer"><span class="mark">✳</span>naija<b>fit</b></div>
+<nav class="links" id="links" aria-label="Main"><span class="pill" id="pill"></span><button data-p="home" onclick="go('home')">Home</button><button data-p="dashboard" onclick="go('dashboard')">Dashboard</button><button data-p="meals" onclick="go('meals')">Meals</button><button data-p="workout" onclick="go('workout')">Training</button><button data-p="goals" onclick="go('goals')">Goals</button></nav>
+<div style="display:flex;gap:10px;align-items:center"><button class="btn g si" onclick="openAuth('in')">Sign in</button><button class="btn p" onclick="enter()"><span id="enterTxt">Open app</span> <span class="ar">→</span></button><button class="avatar" aria-label="Your profile" onclick="toggleMenu()"></button></div></header>
+
+<main>
+<!-- LANDING -->
+<section class="view" id="v-home"><div class="wrap">
+<div class="hero"><div>
+<div class="eyebrow fade" style="--i:0">Nutrition &amp; training, made in Nigeria</div>
+<h1><span class="w" style="--i:0"><i>Eat</i></span> <span class="w" style="--i:1"><i>well.</i></span><br><span class="w" style="--i:2"><i><em>Train</em></i></span> <span class="w" style="--i:3"><i><em>strong.</em></i></span></h1>
+<p class="lead fade" style="--i:1">Plan jollof-to-egusi meals that fit your goals, follow a simple weekly training split, and watch your progress build, one day at a time.</p>
+<div class="cta fade" style="--i:2"><button class="btn p" onclick="enter()"><span id="startTxt">Start for free</span> <span class="ar">→</span></button><button class="btn g" onclick="document.getElementById('how').scrollIntoView()">See how it works</button></div>
+<div class="stats fade" style="--i:3"><div><b data-count="12">0</b><span>Local dishes</span></div><div><b data-count="7">0</b><span>Day training split</span></div><div><b data-count="100" data-suf="%">0</b><span>Your pace</span></div></div>
+</div>
+<div class="phone fade" style="--i:2"><div class="card"><div class="eyebrow">Today</div><div class="nut" style="margin-top:14px"><div class="ring" id="heroRing"><div><strong>1,380</strong><small>of 2,000 kcal</small></div></div><div class="macros"><div class="macro"><div class="ml"><b>Protein</b><span>82/120g</span></div><div class="track"><i data-w="68"></i></div></div><div class="macro"><div class="ml"><b>Carbs</b><span>156/220g</span></div><div class="track"><i data-w="71"></i></div></div><div class="macro"><div class="ml"><b>Fats</b><span>42/65g</span></div><div class="track"><i data-w="65"></i></div></div></div></div></div><div class="chip a">💪🏾 Upper body · 40 min</div><div class="chip b">💧 5 / 8 glasses</div></div></div></div>
+<div class="marq" aria-hidden="true"><div id="marq"></div></div>
+<section class="blk"><div class="wrap"><div class="eyebrow" data-r>Why NaijaFit</div><h2 data-r>Built around the food you actually eat.</h2><p data-r>No bland foreign meal plans. Everything starts with familiar dishes and sensible training.</p>
+<div class="feat"><div class="card hv" data-r style="--d:.05s"><div class="ico">🍲</div><h3>Local meal planner</h3><p>Pick a day and a focus, then choose from satisfying Nigerian dishes with calories and protein shown.</p></div><div class="card hv" data-r style="--d:.15s"><div class="ico">💪🏾</div><h3>Guided training</h3><p>A flexible weekly split with a built-in timer, set tracking and a workout log.</p></div><div class="card hv" data-r style="--d:.25s"><div class="ico">📈</div><h3>Daily tracking</h3><p>Calories, macros and water update live and are saved on your device between visits.</p></div></div></div></section>
+<section class="blk" id="how"><div class="wrap"><div class="eyebrow" data-r>How it works</div><h2 data-r>Three steps. Zero overwhelm.</h2><p data-r>Start simple and adjust whenever life changes.</p>
+<div class="steps"><div class="card hv" data-r style="--d:.05s"><h3>Choose your focus</h3><p>Build strength, eat more balanced, or go lighter. Change it any time.</p></div><div class="card hv" data-r style="--d:.15s"><h3>Log meals &amp; water</h3><p>Add dishes in one tap and watch your ring fill up.</p></div><div class="card hv" data-r style="--d:.25s"><h3>Train and celebrate</h3><p>Tick off exercises, time your session and keep the streak going.</p></div></div>
+<div class="band" data-r><h2>Ready to feel stronger?</h2><p>Open the app and plan today in under a minute.</p><button class="btn p" onclick="enter()">Create your free account <span class="ar">→</span></button></div></div></section>
+<footer>© 2026 NaijaFit · Meal ideas are general guidance, not medical advice.</footer></section>
+
+<!-- DASHBOARD -->
+<section class="view" id="v-dashboard" hidden><div class="wrap app">
+<div class="welcome"><div><div class="eyebrow" id="today"></div><h1 id="greet">Good morning 👋</h1><p>Eat well, move often, and celebrate your progress.</p></div><div class="date">📅 Today</div></div>
+<div class="layout"><section class="card"><div class="head"><div><h2>Today's nutrition</h2><div class="small">Nourishing meals, with a taste of home.</div></div><button class="act" onclick="go('meals')">＋ Choose a meal</button></div>
+<div class="nut"><div class="ring" id="ring"><div><strong id="kcal">0</strong><small>of 2,000 kcal</small></div></div><div class="macros"><div class="macro"><div class="ml"><b>Protein</b><span id="mp"></span></div><div class="track"><i id="bp"></i></div></div><div class="macro"><div class="ml"><b>Carbs</b><span id="mc"></span></div><div class="track"><i id="bc"></i></div></div><div class="macro"><div class="ml"><b>Fats</b><span id="mf"></span></div><div class="track"><i id="bf"></i></div></div></div></div>
+<div id="meals" style="margin-top:14px"></div><div class="small" style="margin-top:8px">Carbs and fats are estimated from calories.</div></section>
+<section class="card train"><div class="head"><div><div class="eyebrow">Tuesday · Upper body</div><h2 style="margin-top:6px">Today's training</h2><div class="small">Strength · About 40 minutes</div></div><span style="font-size:24px">💪🏾</span></div>
+<div class="exs"></div><button class="btn p start" data-wb onclick="toggleWorkout()">Start workout <span class="ar">→</span></button></section></div>
+<section class="card" style="margin-top:18px"><div class="head"><div><h2>Your weekly training split</h2><div class="small">Tap a day to focus it. Edit labels any time.</div></div><button class="act" id="editBtn" onclick="editSplit()">Edit split ↗</button></div><div class="days" id="days"></div>
+<div class="water"><div style="display:flex;gap:12px;align-items:center"><span class="icon" style="background:#1d3032">💧</span><div><b style="font-size:13px">Water check-in</b><div class="small">Tap a glass or use the buttons.</div></div></div><div class="glasses" id="glasses"></div><div class="ctl"><button aria-label="Remove a glass" onclick="water(-1)">−</button><span><span id="wc">5</span> / 8</span><button aria-label="Add a glass" onclick="water(1)">＋</button></div></div></section>
+</div></section>
+
+<!-- MEALS -->
+<section class="view" id="v-meals" hidden><div class="wrap app"><div class="hero2"><div class="eyebrow">Made for your day</div><h1>Nigerian meals, your way.</h1><p>Pick a day and goal to find satisfying local favourites.</p></div>
+<div class="card"><div class="ctrls"><label class="field">Plan a day<select id="mDay" onchange="renderMeals()"><option>Monday</option><option selected>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option></select></label><label class="field">Your focus<select id="mGoal" onchange="setGoal(this.value,true)"><option value="all">Balanced eating</option><option value="build">Build strength</option><option value="lean">Lighter choices</option><option value="energy">Everyday energy</option></select></label></div>
+<div class="small" id="mNote"></div><div class="mo" id="mo"></div></div></div></section>
+
+<!-- TRAINING -->
+<section class="view" id="v-workout" hidden><div class="wrap app"><div class="hero2"><div class="eyebrow">Train at your pace</div><h1>Today's upper-body session.</h1><p>Simple strength work, adapt it to your equipment and experience.</p></div>
+<div class="card"><div class="exs"></div><div class="card" style="background:var(--card2);padding:16px;margin:10px 0"><b style="font-size:14px">Warm up and listen to your body</b><div class="small">Start with 5 minutes of easy movement. Rest between sets and stop if you feel pain.</div></div>
+<div class="timer"><div><div class="small">Workout timer</div><div class="tv" id="tv">00:00</div></div><div class="tb"><button class="btn p" id="tt" onclick="toggleWorkout()">Start</button><button class="btn g" onclick="resetTimer()">Reset</button></div></div>
+<h3 style="font-size:15px">Workout log</h3><ul id="logList"></ul><button class="btn p start" data-wb onclick="toggleWorkout()">Start workout <span class="ar">→</span></button></div></div></section>
+
+<!-- GOALS -->
+<section class="view" id="v-goals" hidden><div class="wrap app"><div class="hero2"><div class="eyebrow">Progress, not perfection</div><h1>Choose what you're working toward.</h1><p>Your focus shapes meal suggestions. Adjust any time.</p></div>
+<div class="gg"><article class="card hv gc" data-g="build"><div class="eyebrow">01 · Strength</div><h3>Build strength</h3><p>Prioritise protein-rich options alongside progressive training and enough fuel.</p><button class="add" onclick="setGoal('build')">Use this focus</button></article><article class="card hv gc" data-g="all"><div class="eyebrow">02 · Balance</div><h3>Feel more balanced</h3><p>Mix familiar staples, vegetables, protein and satisfying portions.</p><button class="add" onclick="setGoal('all')">Use this focus</button></article><article class="card hv gc" data-g="lean"><div class="eyebrow">03 · Lighter</div><h3>Make lighter choices</h3><p>Filling meals with vegetables, beans, fish and grilled proteins.</p><button class="add" onclick="setGoal('lean')">Use this focus</button></article></div>
+<div class="card" style="margin-top:16px"><h3 style="font-size:16px">A note on your goals</h3><p class="small" style="font-size:13px">These are flexible meal ideas, not medical advice. Needs are individual; avoid extreme restriction and consult a qualified professional for personalised nutrition support.</p></div></div></section>
+</main>
+<div class="um" id="um" hidden><b id="umn"></b><div class="small" id="ume"></div><button class="btn g" style="width:100%;padding:10px" onclick="signOut()">Sign out</button></div>
+<div class="modal" id="auth" hidden><div class="mb" onclick="closeAuth()"></div><div class="mc" role="dialog" aria-modal="true" aria-labelledby="at"><button class="x mx" onclick="closeAuth()" aria-label="Close">✕</button><div class="eyebrow">NaijaFit · Free to join</div><h2 id="at">Create your account</h2><p class="small" id="as">Sign up in seconds and we'll greet you by name.</p><div class="tabs" id="tabs"><i></i><button id="tu" onclick="authMode('up')">Sign up</button><button id="ti" onclick="authMode('in')">Sign in</button></div><label class="fl" id="fn">Your name<input id="an" autocomplete="name" placeholder="e.g. Chidi Okafor"></label><label class="fl">Email<input id="ae" type="email" autocomplete="email" placeholder="you@example.com"></label><label class="fl">Password<input id="ap" type="password" autocomplete="current-password" placeholder="At least 6 characters"></label><div class="err" id="aerr" role="alert"></div><button class="btn p" id="asub" style="width:100%" onclick="submitAuth()">Create account</button><p class="small" style="text-align:center;margin:14px 0 0">Your account and progress are saved privately on this device.</p></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],ease=t=>1-Math.pow(1-t,4);
+const CAT=[['Ogi & moi moi',360,20,'🥣','all build lean energy'],['Jollof rice & grilled chicken',520,38,'🍚','all build energy'],['Ewa agoyin & baked plantain',440,19,'🫘','all lean energy'],['Beans porridge with spinach',390,22,'🥘','all build lean'],['Grilled tilapia, yam & greens',480,36,'🐟','all build energy'],['Ofada rice & ayamase',540,27,'🍛','all energy'],['Suya chicken salad',350,34,'🥗','all build lean'],['Edikang ikong with fish',420,32,'🍲','all build lean'],['Tuwo shinkafa & okra soup',460,24,'🥣','all energy'],['Akara & fruit',330,16,'🍌','all lean energy'],['Egusi soup with lean beef & eba',570,35,'🥘','all build energy'],['Roasted corn & pear',300,9,'🌽','all lean energy']].map(a=>({n:a[0],k:a[1],p:a[2],i:a[3],t:a[4].split(' ')}));
+const EX=[['Push-ups','3 sets · 10–12 reps'],['Dumbbell shoulder press','3 sets · 10 reps'],['One-arm rows','3 sets · 12 reps each side']];
+const DAYS=[['MON','Lower body'],['TUE','Upper body'],['WED','Walk + core'],['THU','Lower body'],['FRI','Upper body'],['SAT','Dance / cardio'],['SUN','Rest']];
+const LAB={all:'Balanced eating',build:'Build strength',lean:'Lighter choices',energy:'Everyday energy'};
+const DEF=()=>({water:5,goal:'all',meals:[{n:'Ogi & moi moi',k:360,p:20,i:'🥣',s:'Breakfast'},{n:'Jollof rice & grilled chicken',k:620,p:38,i:'🍚',s:'Lunch'},{n:'Groundnuts & banana',k:200,p:12,i:'🥜',s:'Snack'}],split:DAYS.map(d=>d[1]),log:[]});let S=DEF(),user=null;
+const UK='naijafit-users',SK='naijafit-session',DK='naijafit-data-';let mode='up',pend='dashboard';
+const users=()=>{try{return JSON.parse(localStorage.getItem(UK)||'{}')}catch(e){return{}}};
+const ini=n=>n.trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+const first=()=>user?user.name.trim().split(/\s+/)[0]:'';
+const hash=async(pw,salt)=>{if(!(window.crypto&&crypto.subtle))return btoa(unescape(encodeURIComponent(salt+pw)));const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(salt+pw));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')};
+function greet(){const h=new Date().getHours(),n=first();$('#greet').textContent=`Good ${h<12?'morning':h<17?'afternoon':'evening'}${n?', '+n:''} 👋`}
+function loadUser(u){user=u;S=DEF();try{Object.assign(S,JSON.parse(localStorage.getItem(DK+u.email)||'{}'))}catch(e){}document.body.classList.add('authed');$('.avatar').textContent=ini(u.name);$('#umn').textContent=u.name;$('#ume').textContent=u.email;$('#startTxt').textContent='Continue, '+first();$('#enterTxt').textContent='Dashboard';greet()}
+function enter(){user?go('dashboard'):openAuth('up')}
+function authMode(m){mode=m;const up=m==='up';$('#tabs').classList.toggle('in',!up);$('#tu').classList.toggle('sel',up);$('#ti').classList.toggle('sel',!up);$('#fn').hidden=!up;$('#at').textContent=up?'Create your account':'Welcome back';$('#as').textContent=up?"Sign up in seconds and we'll greet you by name.":'Sign in to pick up where you left off.';$('#asub').textContent=up?'Create account':'Sign in';$('#ap').autocomplete=up?'new-password':'current-password';$('#aerr').textContent=''}
+function openAuth(m){authMode(m||'up');$('#auth').hidden=false;document.body.classList.add('lock');setTimeout(()=>$(mode==='up'?'#an':'#ae').focus(),80)}
+function closeAuth(){$('#auth').hidden=true;document.body.classList.remove('lock');$('#ap').value='';$('#aerr').textContent=''}
+async function submitAuth(){const n=$('#an').value.trim(),em=$('#ae').value.trim().toLowerCase(),pw=$('#ap').value,err=m=>{$('#aerr').textContent=m;$('.mc').animate([{transform:'translateX(0)'},{transform:'translateX(-8px)'},{transform:'translateX(8px)'},{transform:'translateX(0)'}],{duration:300})};
+if(mode==='up'&&n.length<2)return err('Please enter your name.');if(!/^\S+@\S+\.\S+$/.test(em))return err('Enter a valid email address.');if(pw.length<6)return err('Password must be at least 6 characters.');
+const all=users();let u=all[em];
+if(mode==='up'){if(u)return err('That email already has an account. Try signing in.');const salt=Math.random().toString(36).slice(2);u=all[em]={name:n,email:em,salt,h:await hash(pw,salt)};try{localStorage.setItem(UK,JSON.stringify(all))}catch(e){return err('Could not save your account in this browser.')}loadUser(u);S.meals=[];S.water=0;save()}
+else{if(!u||u.h!==await hash(pw,u.salt))return err('Email or password is incorrect.');loadUser(u)}
+try{localStorage.setItem(SK,em)}catch(e){}
+closeAuth();toast(mode==='up'?`Welcome to NaijaFit, ${first()}!`:`Welcome back, ${first()}!`);go(pend||'dashboard')}
+function toggleMenu(){$('#um').hidden=!$('#um').hidden}
+function signOut(){try{localStorage.removeItem(SK)}catch(e){}clearInterval(work.id);work={on:false,t:0,id:null};user=null;S=DEF();document.body.classList.remove('authed');$('#um').hidden=true;$('#startTxt').textContent='Start for free';$('#enterTxt').textContent='Open app';greet();go('home');toast('You’ve been signed out')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAuth();if(e.key==='Enter'&&!$('#auth').hidden)submitAuth()});
+document.addEventListener('click',e=>{if(!e.target.closest('#um,.avatar'))$('#um').hidden=true});
+try{const em=localStorage.getItem(SK),u=em&&users()[em];if(u)loadUser(u)}catch(e){}
+const save=()=>{if(!user)return;try{localStorage.setItem(DK+user.email,JSON.stringify(S))}catch(e){}};
+let view='home',tt,work={on:false,t:0,id:null},done=new Set();
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2300)}
+function count(el,to,dur=1400,suf=''){const t0=performance.now(),from=0;(function f(n){const p=Math.min(1,(n-t0)/dur);el.textContent=Math.round(from+(to-from)*ease(p)).toLocaleString()+suf;if(p<1)requestAnimationFrame(f)})(t0)}
+/* navigation */
+function pill(){const b=$(`#links button[data-p="${view}"]`);if(!b)return;const p=$('#pill');p.style.width=b.offsetWidth+'px';p.style.transform=`translateX(${b.offsetLeft-4}px)`;$$('#links button').forEach(x=>x.classList.toggle('sel',x===b))}
+function go(p){if(p!=='home'&&!user){pend=p;return openAuth('up')}if(p===view&&!$('#v-'+p).hidden)return window.scrollTo({top:0,behavior:'smooth'});view=p;document.body.dataset.v=p;$$('.view').forEach(v=>v.hidden=v.id!=='v-'+p);pill();window.scrollTo({top:0,behavior:'smooth'});
+if(p==='dashboard')renderDash();if(p==='meals')renderMeals();if(p==='goals')markGoal();if(p==='home')heroAnim();watchReveal()}
+addEventListener('resize',pill);
+/* reveal on scroll */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+function watchReveal(){$$('[data-r]:not(.in)').forEach(el=>io.observe(el))}
+function heroAnim(){const r=$('#heroRing');r.style.setProperty('--p',0);$$('#v-home .track i').forEach(i=>i.style.width=0);setTimeout(()=>{r.style.setProperty('--p',69);$$('#v-home .track i').forEach(i=>i.style.width=i.dataset.w+'%')},700);
+$$('[data-count]').forEach(el=>count(el,+el.dataset.count,1800,el.dataset.suf||''))}
+/* dashboard */
+function renderDash(){const m=S.meals,k=m.reduce((a,x)=>a+x.k,0),p=m.reduce((a,x)=>a+x.p,0),c=Math.round(k*.5/4),f=Math.round(k*.28/9);
+$('#meals').innerHTML=m.map((x,i)=>`<div class="meal"><div class="icon">${x.i}</div><div class="mi"><b>${x.n}</b><small>${x.s||'Just logged'} · 1 serving</small></div><span class="kc">${x.k} kcal</span><button class="x" aria-label="Remove ${x.n}" onclick="rmMeal(${i},this)">✕</button></div>`).join('')||'<div class="small" style="padding:14px 0">No meals logged yet. Choose one to begin.</div>';
+count($('#kcal'),k,1200);$('#ring').style.setProperty('--p',0);requestAnimationFrame(()=>setTimeout(()=>$('#ring').style.setProperty('--p',Math.min(100,k/20)),60));
+[['p',p,120],['c',c,220],['f',f,65]].forEach(([id,v,g])=>{$('#m'+id).textContent=`${v} / ${g}g`;const b=$('#b'+id);b.style.width=0;setTimeout(()=>b.style.width=Math.min(100,v/g*100)+'%',80)});
+renderDays();renderWater();renderEx()}
+function rmMeal(i,b){const row=b.closest('.meal');row.classList.add('out');setTimeout(()=>{S.meals.splice(i,1);save();renderDash()},330)}
+function renderDays(){const el=$('#days'),d=new Date().getDay(),today=(d+6)%7,sel=el.dataset.sel!==undefined?+el.dataset.sel:today;el.dataset.sel=sel;
+el.innerHTML=DAYS.map((x,i)=>`<button class="day ${i===sel?'act2':''}" onclick="pickDay(${i})"><small>${x[0]}</small><span>${S.split[i]}</span></button>`).join('')}
+function pickDay(i){if($('#days').classList.contains('edit'))return;$('#days').dataset.sel=i;renderDays();toast(`${DAYS[i][0]} · ${S.split[i]}`)}
+function editSplit(){const el=$('#days'),on=el.classList.toggle('edit');$('#editBtn').textContent=on?'Save split ✓':'Edit split ↗';
+$$('#days .day span').forEach(s=>{s.contentEditable=on;s.spellcheck=false});
+if(on){$('#days .day span').focus();toast('Tap a label and type to change it')}else{S.split=$$('#days .day span').map((s,i)=>s.textContent.trim()||DAYS[i][1]);save();renderDays();toast('Weekly split saved')}}
+function renderWater(){$('#wc').textContent=S.water;$('#glasses').innerHTML=Array.from({length:8},(_,i)=>`<i class="${i<S.water?'f':''}" onclick="setWater(${i+1})"></i>`).join('')}
+function setWater(n){S.water=S.water===n?n-1:n;save();renderWater()}
+function water(a){const o=S.water;S.water=Math.max(0,Math.min(8,o+a));save();renderWater();if(S.water===8&&o<8)toast('Daily water goal reached, nice work!')}
+/* meals */
+function renderMeals(){const g=S.goal,day=$('#mDay').value,days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],ch=CAT.filter(x=>x.t.includes(g)),s=(days.indexOf(day)*3)%ch.length;
+$('#mGoal').value=g;$('#mNote').textContent=`Meal ideas for ${day} · ${LAB[g]} · tap Add to log a dish.`;
+$('#mo').innerHTML=[...ch.slice(s),...ch.slice(0,s)].slice(0,6).map((x,i)=>`<article class="opt" style="--i:${i}"><span class="icon">${x.i}</span><div class="mi"><b>${x.n}</b><small>≈ ${x.p}g protein · ${x.k} kcal</small></div><button class="add" onclick="addMeal(${CAT.indexOf(x)},this)">＋ Add</button></article>`).join('')}
+function addMeal(i,b){const x=CAT[i];S.meals.push({n:x.n,k:x.k,p:x.p,i:x.i});save();b.textContent='✓ Added';setTimeout(()=>b.textContent='＋ Add',1200);toast(`${x.n} added to today's log`)}
+function setGoal(g,quiet){S.goal=g;save();markGoal();if(quiet){renderMeals();return}toast(`${LAB[g]} selected`);go('meals')}
+function markGoal(){$$('.gc').forEach(c=>c.classList.toggle('on',c.dataset.g===S.goal))}
+/* workout */
+function renderEx(){$$('.exs').forEach(w=>w.innerHTML=EX.map((e,i)=>`<div class="ex ${done.has(i)?'ok':''}" onclick="tick(${i})"><span class="num">${done.has(i)?'✓':'0'+(i+1)}</span><div><b>${e[0]}</b><small>${e[1]}</small></div></div>`).join(''));renderLog();wbtn()}
+function tick(i){done.has(i)?done.delete(i):done.add(i);renderEx();if(done.size===EX.length)toast('All exercises done. Finish your workout!')}
+const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+function wbtn(){$$('[data-wb]').forEach(b=>{b.classList.toggle('live',work.on);b.innerHTML=work.on?'Finish workout ✓':'Start workout <span class="ar">→</span>'});const t=$('#tt');if(t)t.textContent=work.on?'Finish':'Start';$('#tv').textContent=fmt(work.t)}
+function toggleWorkout(){if(!work.on){work.on=true;work.id=setInterval(()=>{work.t++;$('#tv').textContent=fmt(work.t)},1000);toast('Workout started. You’ve got this!')}else{clearInterval(work.id);work.on=false;S.log.unshift({n:'Upper body',d:fmt(work.t),w:new Date().toLocaleDateString()});S.log=S.log.slice(0,8);save();work.t=0;done.clear();toast('Workout complete, great work!');renderEx()}wbtn()}
+function resetTimer(){clearInterval(work.id);work={on:false,t:0,id:null};done.clear();renderEx();toast('Timer reset')}
+function renderLog(){$('#logList').innerHTML=S.log.length?S.log.map(l=>`<li><span>${l.n} · ${l.w}</span><b>${l.d}</b></li>`).join(''):'<li>No sessions yet. Your first one will appear here.</li>'}
+/* micro-interactions */
+document.addEventListener('pointerdown',e=>{const b=e.target.closest('.btn,.add,.act');if(!b)return;const r=b.getBoundingClientRect(),d=Math.max(r.width,r.height)*2,s=document.createElement('span');s.className='rip';s.style.cssText=`width:${d}px;height:${d}px;left:${e.clientX-r.left-d/2}px;top:${e.clientY-r.top-d/2}px`;if(getComputedStyle(b).position==='static')b.style.position='relative';b.style.overflow='hidden';b.appendChild(s);setTimeout(()=>s.remove(),700)});
+document.addEventListener('pointermove',e=>{const c=e.target.closest('.card.hv');if(c){const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')}
+$$('.btn.p').forEach(b=>{if(e.pointerType!=='mouse')return;const r=b.getBoundingClientRect(),x=e.clientX-(r.left+r.width/2),y=e.clientY-(r.top+r.height/2);b.style.transform=Math.hypot(x,y)<90?`translate(${x*.18}px,${y*.25}px)`:''})});
+/* intro */
+function boot(){$('#marq').innerHTML=[...CAT,...CAT].map(x=>`<span>${x.i} ${x.n}</span>`).join('');
+$('#greeting')&&0;greet();$('#today').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+$('#word').innerHTML='NAIJAFIT'.split('').map((c,i)=>`<span class="${i>4?'l':''}" style="animation-delay:${.3+i*.07}s">${c}</span>`).join('');
+renderEx();renderWater();pill();markGoal();
+const quick=matchMedia('(prefers-reduced-motion:reduce)').matches,dur=quick?200:2600,t0=performance.now();
+(function f(n){const p=Math.min(1,(n-t0)/dur),v=Math.round(ease(p)*100);$('#bar').style.width=v+'%';$('#pct').textContent=v+'%';if(p<1)return requestAnimationFrame(f);
+setTimeout(()=>{$('#intro').classList.add('done');document.body.classList.add('go');document.body.classList.remove('lock');heroAnim();watchReveal();setTimeout(()=>$('#intro').remove(),1300)},300)})(t0)}
+document.fonts&&document.fonts.ready?document.fonts.ready.then(boot):boot();
+</script>
+</body>
+</html>
